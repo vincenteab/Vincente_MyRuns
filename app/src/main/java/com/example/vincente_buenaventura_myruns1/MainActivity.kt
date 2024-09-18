@@ -3,7 +3,7 @@ package com.example.vincente_buenaventura_myruns1
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,11 +14,12 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import java.io.File
+import java.util.Date
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,9 +36,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imgUri: Uri
     private lateinit var myViewModel: MyViewModel
     private lateinit var radioGroup: RadioGroup
-    private var line:String? = "..."
-    private var lastSavedPhotoPath:String? = "..."
-    private val imgFileName = "vb.jpg"
+    private lateinit var imgFileName:String
+    private var lastSavedPhotoPath:String = ""
+    private var currentSavedPhotoPath:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         loadSavedData();
 
         Util.checkPermissions(this)
-
+        imgFileName = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()) + ".jpg"
         val imgFile = File(getExternalFilesDir(null), imgFileName)
 
         imgUri = FileProvider.getUriForFile(this, "com.example.vincente_buenaventura_myruns1",
@@ -69,34 +70,34 @@ class MainActivity : AppCompatActivity() {
             cameraResult.launch(intent)
         }
 
-        cameraResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        cameraResult = registerForActivityResult(StartActivityForResult()){
             result: ActivityResult ->
-            if(result.resultCode == Activity.RESULT_OK){
-                val bitmap = Util.getBitmap(this, imgUri)
-                myViewModel.image.value = bitmap
+                if(result.resultCode == Activity.RESULT_OK){
+                    val bitmap = Util.getBitmap(this, imgUri)
+                    myViewModel.image.value = bitmap
+                    currentSavedPhotoPath = imgUri.path.toString()
 
-            }
+                }
         }
 
         myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
-        myViewModel.image.observe(this){
-                it: Bitmap ->
+        myViewModel.image.observe(this, { it ->
             imageView.setImageBitmap(it)
-        }
+        })
 
         saveButton.setOnClickListener(){
-            saveData();
-            finish();
+            saveData()
+            finish()
         }
 
         cancelButton.setOnClickListener(){
-            if (lastSavedPhotoPath != null) {
-                val file: File = File(lastSavedPhotoPath)
+            if (lastSavedPhotoPath != "") {
+                val file = File(lastSavedPhotoPath)
                 if (file.exists()) {
                     imageView.setImageURI(Uri.fromFile(file)) // Revert to last saved image
                 }
             }
-            finish();
+            finish()
         }
 
 
@@ -113,11 +114,18 @@ class MainActivity : AppCompatActivity() {
         editor.putString("text4", classText.getText().toString())
         editor.putString("text5", majorText.getText().toString())
 
-        val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-        editor.putInt("selectedRadioButton", selectedRadioButtonId);
-        line = imgUri.path.toString()
-        editor.putString("photoPath", line);
-        lastSavedPhotoPath = line;
+        val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId()
+        editor.putInt("selectedRadioButton", selectedRadioButtonId)
+
+        if (currentSavedPhotoPath == ""){
+            editor.putString("photoPath", lastSavedPhotoPath)
+
+        }else{
+
+            editor.putString("photoPath", currentSavedPhotoPath)
+            lastSavedPhotoPath = currentSavedPhotoPath
+        }
+
 
         // Apply changes
         editor.apply()
@@ -148,8 +156,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        lastSavedPhotoPath = sharedPreferences.getString("photoPath", null)
-        if (lastSavedPhotoPath != null) {
+        lastSavedPhotoPath = sharedPreferences.getString("photoPath", null).toString()
+        if (lastSavedPhotoPath != "") {
             val file = File(lastSavedPhotoPath)
             if (file.exists()) {
                 imageView.setImageURI(Uri.fromFile(file))
