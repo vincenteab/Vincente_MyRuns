@@ -3,17 +3,21 @@ package com.example.vincente_buenaventura_myruns1
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
 import java.io.File
 
 
@@ -29,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cancelButton: Button
     private lateinit var cameraResult: ActivityResultLauncher<Intent>
     private lateinit var imgUri: Uri
+    private lateinit var myViewModel: MyViewModel
+    private lateinit var radioGroup: RadioGroup
     private val imgFileName = "vb.jpg"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.buttonSave)
         changeButton = findViewById(R.id.buttonChange)
         cancelButton = findViewById(R.id.buttonCancel)
+        radioGroup = findViewById(R.id.radioGroup)
+
 
         loadSavedData();
 
@@ -63,8 +71,14 @@ class MainActivity : AppCompatActivity() {
             result: ActivityResult ->
             if(result.resultCode == Activity.RESULT_OK){
                 val bitmap = Util.getBitmap(this, imgUri)
-                imageView.setImageBitmap(bitmap)
+                myViewModel.image.value = bitmap
             }
+        }
+
+        myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+        myViewModel.image.observe(this){
+                it: Bitmap ->
+            imageView.setImageBitmap(it)
         }
 
         saveButton.setOnClickListener(){
@@ -75,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         cancelButton.setOnClickListener(){
             finish();
         }
+
+
         }
 
     private fun saveData() {
@@ -87,6 +103,9 @@ class MainActivity : AppCompatActivity() {
         editor.putString("text3", phoneNumText.getText().toString())
         editor.putString("text4", classText.getText().toString())
         editor.putString("text5", majorText.getText().toString())
+
+        val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+        editor.putInt("selectedRadioButton", selectedRadioButtonId);
 
         // Apply changes
         editor.apply()
@@ -102,10 +121,19 @@ class MainActivity : AppCompatActivity() {
         val savedText4 = sharedPreferences.getString("text4", "")
         val savedText5 = sharedPreferences.getString("text5", "")
 
+
         nameText.setText(savedText1)
         emailText.setText(savedText2)
         phoneNumText.setText(savedText3)
         classText.setText(savedText4)
         majorText.setText(savedText5)
+
+        val savedRadioButtonId = sharedPreferences.getInt("selectedRadioButton", -1)
+        if (savedRadioButtonId != -1) {
+            val savedRadioButton = findViewById<RadioButton>(savedRadioButtonId)
+            if (savedRadioButton != null) {
+                savedRadioButton.isChecked = true // Restore saved RadioButton selection
+            }
+        }
     }
     }

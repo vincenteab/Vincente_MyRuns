@@ -9,174 +9,186 @@
     android:layout_marginLeft="5dp">
 
 
-    <LinearLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textViewProfilePhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile Photo:" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageViewProfilePhoto"
-                android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:src="@drawable/channels4_profile"
-                android:contentDescription="My Image"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-
-            <Button
-                android:id="@+id/buttonChange"
+            <TextView
+                android:id="@+id/textViewProfilePhoto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:text="CHANGE" />
-        </LinearLayout>
+                android:text="Profile Photo:" />
 
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name" />
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:hint="Your Name"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Email" />
-
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:hint="Your Email"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/textViewPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Phone" />
-
-        <EditText
-            android:id="@+id/editTextPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:hint="Your Phone Number"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/textViewGender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Gender" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radioButtonFemal"
-                    android:layout_width="278dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Female" />
+                <ImageView
+                    android:id="@+id/imageViewProfilePhoto"
+                    android:layout_width="75dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="My Image"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/channels4_profile" />
 
-                <RadioButton
-                    android:id="@+id/radioButtonMale"
-                    android:layout_width="237dp"
+                <Button
+                    android:id="@+id/buttonChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="CHANGE" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="Your Name"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email" />
+
+            <EditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="Your Email"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textViewPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Phone" />
+
+            <EditText
+                android:id="@+id/editTextPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="Your Phone Number"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Gender" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonFemal"
+                        android:layout_width="278dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="Female" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonMale"
+                        android:layout_width="237dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Male" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Class" />
+
+            <EditText
+                android:id="@+id/editTextClass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="eg. 2012"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textViewMajor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Major" />
+
+            <EditText
+                android:id="@+id/editTextMajor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:hint="Your Major"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="Save" />
+
+                <Button
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Male" />
-            </RadioGroup>
+                    android:text="Cancel" />
+            </LinearLayout>
+
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textViewClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Class" />
-
-        <EditText
-            android:id="@+id/editTextClass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:hint="eg. 2012"
-            android:inputType="text" />
-
-        <TextView
-            android:id="@+id/textViewMajor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Major" />
-
-        <EditText
-            android:id="@+id/editTextMajor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:hint="Your Major"
-            android:inputType="text" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp">
-
-
-            <Button
-                android:id="@+id/buttonSave"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:text="Save" />
-
-            <Button
-                android:id="@+id/buttonCancel"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
