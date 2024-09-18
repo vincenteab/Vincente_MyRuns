@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imgUri: Uri
     private lateinit var myViewModel: MyViewModel
     private lateinit var radioGroup: RadioGroup
+    private var line:String? = "..."
+    private var lastSavedPhotoPath:String? = "..."
     private val imgFileName = "vb.jpg"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             if(result.resultCode == Activity.RESULT_OK){
                 val bitmap = Util.getBitmap(this, imgUri)
                 myViewModel.image.value = bitmap
+
             }
         }
 
@@ -87,6 +90,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener(){
+            if (lastSavedPhotoPath != null) {
+                val file: File = File(lastSavedPhotoPath)
+                if (file.exists()) {
+                    imageView.setImageURI(Uri.fromFile(file)) // Revert to last saved image
+                }
+            }
             finish();
         }
 
@@ -106,6 +115,9 @@ class MainActivity : AppCompatActivity() {
 
         val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
         editor.putInt("selectedRadioButton", selectedRadioButtonId);
+        line = imgUri.path.toString()
+        editor.putString("photoPath", line);
+        lastSavedPhotoPath = line;
 
         // Apply changes
         editor.apply()
@@ -133,6 +145,14 @@ class MainActivity : AppCompatActivity() {
             val savedRadioButton = findViewById<RadioButton>(savedRadioButtonId)
             if (savedRadioButton != null) {
                 savedRadioButton.isChecked = true // Restore saved RadioButton selection
+            }
+        }
+
+        lastSavedPhotoPath = sharedPreferences.getString("photoPath", null)
+        if (lastSavedPhotoPath != null) {
+            val file = File(lastSavedPhotoPath)
+            if (file.exists()) {
+                imageView.setImageURI(Uri.fromFile(file))
             }
         }
     }
