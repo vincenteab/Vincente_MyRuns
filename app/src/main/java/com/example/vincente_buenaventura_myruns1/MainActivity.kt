@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         imageView = findViewById(R.id.imageViewProfilePhoto)
         nameText = findViewById(R.id.editTextName)
         emailText = findViewById(R.id.editTextEmail)
-        phoneNumText = findViewById(R.id.editTextPhoneNumber)
+        phoneNumText = findViewById(R.id.editTextPhone)
         classText = findViewById(R.id.editTextClass)
         majorText  = findViewById(R.id.editTextMajor)
         saveButton = findViewById(R.id.buttonSave)

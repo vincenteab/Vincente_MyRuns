@@ -115,12 +115,12 @@
                     android:text="Phone" />
 
                 <EditText
-                    android:id="@+id/editTextPhoneNumber"
+                    android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:ems="10"
                     android:hint="Your Phone Number"
-                    android:inputType="text" />
+                    android:inputType="phone" />
 
                 <TextView
                     android:id="@+id/textViewGender"
@@ -167,9 +167,9 @@
                     android:id="@+id/editTextClass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:ems="10"
                     android:hint="eg. 2012"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
                 <TextView
                     android:id="@+id/textViewMajor"
