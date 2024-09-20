@@ -4,6 +4,7 @@ package com.example.vincente_buenaventura_myruns1
 import android.app.Activity
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
+import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -73,7 +74,25 @@ class MainActivity : AppCompatActivity() {
         cameraResult = registerForActivityResult(StartActivityForResult()){
             result: ActivityResult ->
                 if(result.resultCode == Activity.RESULT_OK){
-                    val bitmap = Util.getBitmap(this, imgUri)
+
+                    //This portion reads EXIF data to see if the image needs to be rotated or not
+                    val degrees: Float
+                    val exif: ExifInterface = ExifInterface(imgUri.path.toString())
+                    val orientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_NORMAL
+                    )
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_90){
+                        degrees = 90f
+                    }else if (orientation == ExifInterface.ORIENTATION_ROTATE_180){
+                        degrees = 180f
+                    }else if (orientation == ExifInterface.ORIENTATION_ROTATE_270){
+                        degrees = 270f
+                    }else{
+                        degrees = 0f
+                    }
+
+                    val bitmap = Util.getBitmap(this, imgUri, degrees)
                     myViewModel.image.value = bitmap
                     currentSavedPhotoPath = imgUri.path.toString()
 

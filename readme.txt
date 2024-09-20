@@ -1,6 +1,7 @@
 Vincente Buenaventura
 301422086
 CMPT 362 D100
+September 19, 2024
 
 The purpose of this read.me file is to showcase the code that I used in my assignment that is from the lectures.
 Below lists the code that I used from lectures and in my code

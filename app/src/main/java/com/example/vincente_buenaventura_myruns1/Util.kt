@@ -21,10 +21,10 @@ object Util {
         }
     }
 
-    fun getBitmap(context: Context, imgUri: Uri): Bitmap {
+    fun getBitmap(context: Context, imgUri: Uri, degrees: Float): Bitmap {
         var bitmap = BitmapFactory.decodeStream(context.contentResolver.openInputStream(imgUri))
         val matrix = Matrix()
-        matrix.setRotate(90f)
+        matrix.setRotate(degrees)
         var ret = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
         return ret
     }
