@@ -56,7 +56,7 @@ class MyViewModel:ViewModel() {
 
 
 
-Code from MainActivity.kt file that includes functionality of smartphone camera and display of image:
+Code from ProfileScreen.kt file that includes functionality of smartphone camera and display of image:
  val imgFile = File(getExternalFilesDir(null), imgFileName)
 
         imgUri = FileProvider.getUriForFile(this, "com.example.vincente_buenaventura_myruns1",
