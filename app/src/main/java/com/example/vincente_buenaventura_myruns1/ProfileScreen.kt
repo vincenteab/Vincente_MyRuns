@@ -8,6 +8,7 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -16,11 +17,14 @@ import android.widget.RadioGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
 import java.io.File
 import java.util.Date
+import android.app.Dialog
+import androidx.fragment.app.DialogFragment
 
 
 class ProfileScreen : AppCompatActivity() {
@@ -34,6 +38,7 @@ class ProfileScreen : AppCompatActivity() {
     private lateinit var changeButton: Button
     private lateinit var cancelButton: Button
     private lateinit var cameraResult: ActivityResultLauncher<Intent>
+    private lateinit var galleryResult: ActivityResultLauncher<Intent>
     private lateinit var imgUri: Uri
     private lateinit var myViewModel: MyViewModel
     private lateinit var radioGroup: RadioGroup
@@ -66,9 +71,31 @@ class ProfileScreen : AppCompatActivity() {
             imgFile)
 
         changeButton.setOnClickListener(){
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
-            cameraResult.launch(intent)
+            val infl = LayoutInflater.from(this)
+            val dialogView = infl.inflate(R.layout.profile_picture_dialog, null)
+
+            val builder = AlertDialog.Builder(this)
+            builder.setView(dialogView)
+
+            val dialog = builder.create()
+            val cameraButton = dialogView.findViewById<Button>(R.id.button)
+
+            cameraButton.setOnClickListener{
+                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
+                cameraResult.launch(intent)
+                dialog.dismiss()
+            }
+
+            val galleryButton = dialogView.findViewById<Button>(R.id.button3)
+            galleryButton.setOnClickListener{
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, 100)
+                dialog.dismiss()
+            }
+
+
+            dialog.show()
         }
 
         cameraResult = registerForActivityResult(StartActivityForResult()){
@@ -95,6 +122,7 @@ class ProfileScreen : AppCompatActivity() {
                     val bitmap = Util.getBitmap(this, imgUri, degrees)
                     myViewModel.image.value = bitmap
                     currentSavedPhotoPath = imgUri.path.toString()
+                    println("camera photo path: $currentSavedPhotoPath")
 
                 }
         }
@@ -136,6 +164,7 @@ class ProfileScreen : AppCompatActivity() {
         val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId()
         editor.putInt("selectedRadioButton", selectedRadioButtonId)
 
+        println("currentsavedphoto: $currentSavedPhotoPath")
         if (currentSavedPhotoPath == ""){
             editor.putString("photoPath", lastSavedPhotoPath)
 
@@ -176,10 +205,27 @@ class ProfileScreen : AppCompatActivity() {
         }
 
         lastSavedPhotoPath = sharedPreferences.getString("photoPath", null).toString()
+        println("loading lastsavedphotopath: $lastSavedPhotoPath")
         if (lastSavedPhotoPath != "") {
             val file = File(lastSavedPhotoPath)
             if (file.exists()) {
                 imageView.setImageURI(Uri.fromFile(file))
+            }
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == 100) {
+            val selectedImageUri: Uri? = data?.data
+            if (selectedImageUri != null) {
+                val bitmap = Util.getBitmap(this, selectedImageUri, 0f)
+                myViewModel.image.value = bitmap
+                currentSavedPhotoPath = selectedImageUri.toString()
+                println("gallery photo path: $currentSavedPhotoPath")
+
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.vincente_buenaventura_myruns1
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment
 
 
 class StartScreen : Fragment() {
+    private lateinit var selectedItem: String
+    private lateinit var acti: Activity
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -27,7 +30,9 @@ class StartScreen : Fragment() {
         spinner.adapter = adapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {}
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                selectedItem = parent.getItemAtPosition(position).toString()
+            }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
@@ -37,15 +42,24 @@ class StartScreen : Fragment() {
         val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerItems2)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner2.adapter = adapter2
+
         spinner2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {}
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         val startButton: Button = view.findViewById(R.id.button2)
         startButton.setOnClickListener{
-            val intent = Intent(requireContext(), ManualInputActivity::class.java)
-            startActivity(intent)
+
+            if (selectedItem == "Manual Entry"){
+                val intent = Intent(requireContext(), ManualInputActivity::class.java)
+                startActivity(intent)
+            }else{
+                val intent = Intent(requireContext(), MapDisplayActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
 
