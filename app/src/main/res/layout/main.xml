@@ -6,14 +6,59 @@
     android:id="@+id/main">
 
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="MyRuns1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottomBar">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/startTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="START" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/historyTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HISTORY" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/settingsTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SETTINGS" />
+
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tab"/>
+        android:layout_below="@id/tab" />
 
 </RelativeLayout>

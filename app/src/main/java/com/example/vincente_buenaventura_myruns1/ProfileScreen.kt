@@ -42,7 +42,7 @@ class ProfileScreen : AppCompatActivity() {
     private var currentSavedPhotoPath:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.screen_profile)
 
         imageView = findViewById(R.id.imageViewProfilePhoto)
         nameText = findViewById(R.id.editTextName)

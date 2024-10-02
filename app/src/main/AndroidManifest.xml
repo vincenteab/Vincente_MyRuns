@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ProfileScreen" />
+        <activity android:name=".ManualInputActivity"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.vincente_buenaventura_myruns1"
