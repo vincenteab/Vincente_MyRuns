@@ -24,6 +24,9 @@ import androidx.lifecycle.ViewModelProvider
 import java.io.File
 import java.util.Date
 import android.app.Dialog
+import android.content.Context
+import android.database.Cursor
+import android.provider.MediaStore.Audio.Media
 import androidx.fragment.app.DialogFragment
 
 
@@ -189,7 +192,6 @@ class ProfileScreen : AppCompatActivity() {
         val savedText4 = sharedPreferences.getString("text4", "")
         val savedText5 = sharedPreferences.getString("text5", "")
 
-
         nameText.setText(savedText1)
         emailText.setText(savedText2)
         phoneNumText.setText(savedText3)
@@ -208,8 +210,10 @@ class ProfileScreen : AppCompatActivity() {
         println("loading lastsavedphotopath: $lastSavedPhotoPath")
         if (lastSavedPhotoPath != "") {
             val file = File(lastSavedPhotoPath)
+            println("file of lastsavedphotopath: $file")
             if (file.exists()) {
-                imageView.setImageURI(Uri.fromFile(file))
+                val uri = Uri.fromFile(file)
+                imageView.setImageURI(uri)
             }
 
         }
@@ -223,10 +227,27 @@ class ProfileScreen : AppCompatActivity() {
             if (selectedImageUri != null) {
                 val bitmap = Util.getBitmap(this, selectedImageUri, 0f)
                 myViewModel.image.value = bitmap
-                currentSavedPhotoPath = selectedImageUri.toString()
-                println("gallery photo path: $currentSavedPhotoPath")
+
+                val convertedPath = getRealPathFromURI(this, selectedImageUri)
+                if (convertedPath != null){
+                    currentSavedPhotoPath = convertedPath
+                    println("gallery file path $convertedPath")
+                }
 
             }
         }
+    }
+
+     fun getRealPathFromURI(context: Context, uri: Uri): String?{
+         var path: String? = null
+         val projection = arrayOf(MediaStore.Images.Media.DATA)
+         val cursor: Cursor? = context.contentResolver.query(uri, projection, null, null, null)
+         if (cursor != null) {
+             val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+             cursor.moveToFirst()
+             path = cursor.getString(columnIndex)
+             cursor.close()
+         }
+         return path
     }
     }
