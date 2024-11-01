@@ -5,5 +5,5 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Vincente_Buenaventura_MyRuns1" parent="Base.Theme.Vincente_Buenaventura_MyRuns1" />
+    <style name="Theme.Vincente_Buenaventura_MyRuns2" parent="Base.Theme.Vincente_Buenaventura_MyRuns1" />
 </resources>
