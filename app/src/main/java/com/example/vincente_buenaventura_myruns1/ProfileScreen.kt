@@ -125,7 +125,7 @@ class ProfileScreen : AppCompatActivity() {
                     val bitmap = Util.getBitmap(this, imgUri, degrees)
                     myViewModel.image.value = bitmap
                     currentSavedPhotoPath = imgUri.path.toString()
-                    println("camera photo path: $currentSavedPhotoPath")
+
 
                 }
         }
@@ -167,7 +167,6 @@ class ProfileScreen : AppCompatActivity() {
         val selectedRadioButtonId = radioGroup.getCheckedRadioButtonId()
         editor.putInt("selectedRadioButton", selectedRadioButtonId)
 
-        println("currentsavedphoto: $currentSavedPhotoPath")
         if (currentSavedPhotoPath == ""){
             editor.putString("photoPath", lastSavedPhotoPath)
 
@@ -207,10 +206,8 @@ class ProfileScreen : AppCompatActivity() {
         }
 
         lastSavedPhotoPath = sharedPreferences.getString("photoPath", null).toString()
-        println("loading lastsavedphotopath: $lastSavedPhotoPath")
         if (lastSavedPhotoPath != "") {
             val file = File(lastSavedPhotoPath)
-            println("file of lastsavedphotopath: $file")
             if (file.exists()) {
                 val uri = Uri.fromFile(file)
                 imageView.setImageURI(uri)
@@ -231,7 +228,7 @@ class ProfileScreen : AppCompatActivity() {
                 val convertedPath = getRealPathFromURI(this, selectedImageUri)
                 if (convertedPath != null){
                     currentSavedPhotoPath = convertedPath
-                    println("gallery file path $convertedPath")
+
                 }
 
             }
