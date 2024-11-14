@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:text="MyRuns2"
+            android:text="MyRuns3"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

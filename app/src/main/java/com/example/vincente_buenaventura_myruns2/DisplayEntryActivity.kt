@@ -77,10 +77,14 @@ class DisplayEntryActivity : AppCompatActivity() {
 
         dateTime.text = tempMonth
 
+        val durationVal = intent.getDoubleExtra("duration", 0.0)
+
+        val minutes = kotlin.math.floor(durationVal).toInt()
+        val temp = durationVal - minutes
+        val seconds = (temp * 60).toInt()
 
 
-
-        duration.text = intent.getDoubleExtra("duration",0.0).toString()+" secs"
+        duration.text = minutes.toString()+" mins "+seconds.toString()+" secs"
 
         var units = ""
 

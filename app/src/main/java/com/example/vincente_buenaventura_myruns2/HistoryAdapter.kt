@@ -59,20 +59,31 @@ class HistoryAdapter(private val context: Context, private var historyList: List
 
 
         if (savedRadioButtonId == -1){
-            str2+=historyList.get(position).distance.toString()+" miles, "+historyList.get(position).duration.toString()+" secs"
+            str2+=historyList.get(position).distance.toString()+" miles, "
         }else if (savedRadioButtonId == 2131231125 && historyList.get(position).units == "miles"){
-            str2+=(((historyList.get(position).distance/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km, "+historyList.get(position).duration.toString()+" secs"
+            str2+=(((historyList.get(position).distance/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km, "
         }else if (savedRadioButtonId == 2131231126 && historyList.get(position).units == "kilometers"){
-            str2+=(((historyList.get(position).distance* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles, "+historyList.get(position).duration.toString()+" secs"
+            str2+=(((historyList.get(position).distance* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles, "
         }else{
             if (historyList.get(position).units == "miles"){
-                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" miles, "+historyList.get(position).duration.toString()+" secs"
+                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" miles, "
             }   else{
-                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" km, "+historyList.get(position).duration.toString()+" secs"
+                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" km, "
             }
         }
 
+        val durationVal = historyList.get(position).duration
 
+
+
+        val minutes = kotlin.math.floor(durationVal).toInt()
+
+        val temp = durationVal - minutes
+
+        val seconds = (temp * 60).toInt()
+
+
+        str2+=minutes.toString()+" mins "+seconds.toString()+" secs"
 
         textViewTop.text = str
         textViewBottom.text = str2
