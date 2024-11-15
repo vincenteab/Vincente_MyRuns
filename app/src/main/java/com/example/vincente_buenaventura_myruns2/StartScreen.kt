@@ -57,7 +57,10 @@ class StartScreen : Fragment() {
                 intent.putExtra("activityType", spinner2.selectedItemPosition)
                 startActivity(intent)
             }else{
+
                 val intent = Intent(requireContext(), MapDisplayActivity::class.java)
+                intent.putExtra("inputType", 1)
+                intent.putExtra("activityType", spinner2.selectedItemPosition)
                 startActivity(intent)
             }
 

@@ -2,7 +2,8 @@ package com.example.vincente_buenaventura_myruns2
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.Calendar
+import com.google.android.gms.maps.model.LatLng
+
 
 @Entity(tableName = "history_table")
 data class HistoryEntry (
@@ -34,6 +35,15 @@ data class HistoryEntry (
     var comment: String = "",
 
     @ColumnInfo(name = "units_column")
-    var units: String = ""
+    var units: String = "",
+
+    @ColumnInfo(name = "avg_pace_column")
+    var avgPace: Double = 0.0,
+
+    @ColumnInfo(name = "avg_speed_column")
+    var avgSpeed: Double = 0.0,
+
+    @ColumnInfo(name = "climb_column")
+    var climb: Double = 0.0
 
 )
