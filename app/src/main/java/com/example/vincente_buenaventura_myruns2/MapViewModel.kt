@@ -23,6 +23,17 @@ class MapViewModel : ViewModel(), ServiceConnection {
     private val _currentSpeed = MutableLiveData<Double>()
     val currentSpeed: LiveData<Double> get() = _currentSpeed
 
+    private val _locationList = MutableLiveData<LatLng>()
+    val locationList: LiveData<LatLng> get() = _locationList
+
+    private val _calories = MutableLiveData<Double>()
+    val caloriesBurned: LiveData<Double> get() = _calories
+
+    private val _timeElapsed = MutableLiveData<Double>()
+    val timeElapsed: LiveData<Double> get() = _timeElapsed
+
+    private val _activityType = MutableLiveData<String>()
+    val activityType: LiveData<String> get() = _activityType
 
 
 
@@ -38,7 +49,13 @@ class MapViewModel : ViewModel(), ServiceConnection {
             service.distanceLiveData.observeForever { _distance.postValue(it) }
             service.averageSpeedLiveData.observeForever { _averageSpeed.postValue(it) }
             service.currentSpeedLiveData.observeForever { _currentSpeed.postValue(it) }
+            service.locationListLiveData.observeForever { _locationList.postValue(it) }
+            service.caloriesLiveData.observeForever { _calories.postValue(it) }
+            service.timeElapsedLiveData.observeForever { _timeElapsed.postValue(it) }
+            service.activityTypeLiveData.observeForever { _activityType.postValue(it) }
+
         }
+        println("debug: onServiceConnected called")
     }
 
     override fun onServiceDisconnected(name: ComponentName) {
@@ -51,6 +68,7 @@ class MapViewModel : ViewModel(), ServiceConnection {
 
     fun bindService(context: Context) {
         val intent = Intent(context, NotifyService::class.java)
+        context.startService(intent)
         context.bindService(intent, this, Context.BIND_AUTO_CREATE)
         println("debug: bindService called")
     }

@@ -1,7 +1,11 @@
 package com.example.vincente_buenaventura_myruns2
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -43,6 +47,8 @@ class Main : AppCompatActivity() {
             tab.text = tabTitles[position] }
         tabLayoutMediator = TabLayoutMediator(tabLayout, viewPager2, tabConfigStrategy)
         tabLayoutMediator.attach()
+        Util.checkPermissions(this)
+
 
 
 
@@ -50,6 +56,42 @@ class Main : AppCompatActivity() {
 
 
     }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // CAMERA permission granted, check for LOCATION permission
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        ActivityCompat.requestPermissions(
+                            this,
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            1002
+                        )
+                    }
+                } else {
+                    println("Camera permission denied")
+                }
+            }
+            1 -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // LOCATION permission granted
+                    println("Location permission granted")
+                } else {
+                    println("Location permission denied")
+                }
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
 

@@ -53,10 +53,10 @@ class ManualInputActivity : AppCompatActivity(),
         var units = ""
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("radioButtonPrefs", Context.MODE_PRIVATE)
         val savedRadioButtonId = sharedPreferences.getInt("selectedOption", -1)
-
-        if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231126){
+        println("debug: manualinputactivity savedRadioButtonId: $savedRadioButtonId")
+        if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231128){
             units = "miles"
-        }else if (savedRadioButtonId == 2131231125){
+        }else if (savedRadioButtonId == 2131231127){
             units = "kilometers"
         }
 

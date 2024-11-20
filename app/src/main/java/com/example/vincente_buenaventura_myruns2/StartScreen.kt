@@ -56,10 +56,17 @@ class StartScreen : Fragment() {
                 intent.putExtra("inputType", 0)
                 intent.putExtra("activityType", spinner2.selectedItemPosition)
                 startActivity(intent)
-            }else{
+            }else if (selectedItem == "GPS"){
 
                 val intent = Intent(requireContext(), MapDisplayActivity::class.java)
+                intent.putExtra("display", false)
                 intent.putExtra("inputType", 1)
+                intent.putExtra("activityType", spinner2.selectedItemPosition)
+                startActivity(intent)
+            }else{
+                val intent = Intent(requireContext(), MapDisplayActivity::class.java)
+                intent.putExtra("display", false)
+                intent.putExtra("inputType", 2)
                 intent.putExtra("activityType", spinner2.selectedItemPosition)
                 startActivity(intent)
             }

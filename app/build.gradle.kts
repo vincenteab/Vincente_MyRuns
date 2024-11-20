@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.maps)
     implementation(libs.androidx.room.common)
+    implementation(files("libs\\weka.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,4 +60,7 @@ dependencies {
     implementation(kotlin("script-runtime"))
 
     implementation(libs.play.services.maps)
+    implementation ("com.google.code.gson:gson:2.10")
+
+
 }

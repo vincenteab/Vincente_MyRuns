@@ -33,6 +33,10 @@ class HistoryAdapter(private val context: Context, private var historyList: List
 
         if (historyList.get(position).inputType == 0)
             str+="Manual Entry: "
+        else if (historyList.get(position).inputType == 1)
+            str+="GPS: "
+        else
+            str+="Automatic: "
 
         when (historyList.get(position).activityType) {
             0 -> str+="Running"
@@ -49,7 +53,9 @@ class HistoryAdapter(private val context: Context, private var historyList: List
             11 -> str+="Wheelchair"
             12 -> str+="Elliptical"
             13 -> str+="Other"
-        }
+
+    }
+
 
 
         str+=", "+convertMonth(historyList.get(position).dateTime)
@@ -60,9 +66,9 @@ class HistoryAdapter(private val context: Context, private var historyList: List
 
         if (savedRadioButtonId == -1){
             str2+=historyList.get(position).distance.toString()+" miles, "
-        }else if (savedRadioButtonId == 2131231125 && historyList.get(position).units == "miles"){
+        }else if (savedRadioButtonId == 2131231127 && historyList.get(position).units == "miles"){
             str2+=(((historyList.get(position).distance/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km, "
-        }else if (savedRadioButtonId == 2131231126 && historyList.get(position).units == "kilometers"){
+        }else if (savedRadioButtonId == 2131231128 && historyList.get(position).units == "kilometers"){
             str2+=(((historyList.get(position).distance* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles, "
         }else{
             if (historyList.get(position).units == "miles"){

@@ -44,7 +44,8 @@ class HistoryScreen : Fragment() {
         repo = HistoryRepo(databaseDao)
 
         factory = HistoryViewModelFactory(repo)
-        historyViewModel = ViewModelProvider(requireActivity(), factory).get(HistoryViewModel::class.java)
+        historyViewModel =
+            ViewModelProvider(requireActivity(), factory).get(HistoryViewModel::class.java)
 
 
         historyViewModel.allHistoryLiveData.observe(viewLifecycleOwner) { entries ->
@@ -55,22 +56,40 @@ class HistoryScreen : Fragment() {
 
         myListView.setOnItemClickListener { parent, view, position, id ->
             val selected = parent.getItemAtPosition(position) as HistoryEntry
-            val intent = Intent(requireContext(), DisplayEntryActivity::class.java)
-            intent.putExtra("id", selected.id)
-            intent.putExtra("inputType", selected.inputType)
-            intent.putExtra("activityType", selected.activityType)
-            intent.putExtra("dateTime", selected.dateTime)
-            intent.putExtra("duration", selected.duration)
-            intent.putExtra("distance", selected.distance)
-            intent.putExtra("calories", selected.calories)
-            intent.putExtra("heartRate", selected.heartRate)
-            intent.putExtra("units", selected.units)
+            if (selected.inputType == 0) {
+                val intent = Intent(requireContext(), DisplayEntryActivity::class.java)
+                intent.putExtra("id", selected.id)
+                intent.putExtra("inputType", selected.inputType)
+                intent.putExtra("activityType", selected.activityType)
+                intent.putExtra("dateTime", selected.dateTime)
+                intent.putExtra("duration", selected.duration)
+                intent.putExtra("distance", selected.distance)
+                intent.putExtra("calories", selected.calories)
+                intent.putExtra("heartRate", selected.heartRate)
+                intent.putExtra("units", selected.units)
+                startActivity(intent)
+            } else if (selected.inputType == 1 || selected.inputType == 2) {
+                val intent = Intent(requireContext(), MapDisplayActivity::class.java)
+                intent.putExtra("display", true)
+                intent.putExtra("id", selected.id)
+                intent.putExtra("inputType", selected.inputType)
+                intent.putExtra("activityType", selected.activityType)
+                intent.putExtra("duration", selected.duration)
+                intent.putExtra("distance", selected.distance)
+                intent.putExtra("calories", selected.calories)
+                intent.putExtra("units", selected.units)
+                intent.putExtra("coordinates", selected.coordinates)
+                intent.putExtra("avgSpeed", selected.avgSpeed)
+                intent.putExtra("units", selected.units)
+                startActivity(intent)
 
-            startActivity(intent)
+
+            }
+
+
+
+
         }
-
-
-
         return view
     }
 

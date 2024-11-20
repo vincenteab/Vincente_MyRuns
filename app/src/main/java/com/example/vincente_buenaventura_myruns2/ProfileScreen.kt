@@ -63,7 +63,7 @@ class ProfileScreen : AppCompatActivity() {
 
         loadSavedData();
 
-        Util.checkPermissions(this)
+
         imgFileName = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()) + ".jpg"
         val imgFile = File(getExternalFilesDir(null), imgFileName)
 

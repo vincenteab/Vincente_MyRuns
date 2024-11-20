@@ -94,9 +94,9 @@ class DisplayEntryActivity : AppCompatActivity() {
         val distanceUnits = intent.getStringExtra("units")
         if (savedRadioButtonId == -1){
             units = distanceVal.toString()+" miles"
-        }else if (savedRadioButtonId == 2131231125 && distanceUnits == "miles"){
+        }else if (savedRadioButtonId == 2131231127 && distanceUnits == "miles"){
            units = (((distanceVal/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km"
-        }else if (savedRadioButtonId == 2131231126 && distanceUnits == "kilometers"){
+        }else if (savedRadioButtonId == 2131231128 && distanceUnits == "kilometers"){
             units = (((distanceVal* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles"
         }else{
             if (distanceUnits == "miles"){
