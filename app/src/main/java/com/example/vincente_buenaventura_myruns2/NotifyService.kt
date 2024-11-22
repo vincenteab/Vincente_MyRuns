@@ -114,9 +114,9 @@ class NotifyService: Service(), LocationListener, SensorEventListener {
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("radioButtonPrefs", Context.MODE_PRIVATE)
         val savedRadioButtonId = sharedPreferences.getInt("selectedOption", -1)
 
-        if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231128){
+        if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231133){
             savedUnits = "miles"
-        }else if (savedRadioButtonId == 2131231127){
+        }else if (savedRadioButtonId == 2131231132){
             savedUnits = "kilometers"
         }
 

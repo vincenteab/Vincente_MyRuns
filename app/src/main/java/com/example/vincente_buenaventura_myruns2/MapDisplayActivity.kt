@@ -74,9 +74,9 @@ class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
             val sharedPreferences: SharedPreferences = this.getSharedPreferences("radioButtonPrefs", Context.MODE_PRIVATE)
             val savedRadioButtonId = sharedPreferences.getInt("selectedOption", -1)
             var savedUnits = ""
-            if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231128){
+            if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231133){
                 savedUnits = "miles"
-            }else if (savedRadioButtonId == 2131231127){
+            }else if (savedRadioButtonId == 2131231132){
                 savedUnits = "kilometers"
             }
 
@@ -250,9 +250,9 @@ class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
                 val sharedPreferences: SharedPreferences = this.getSharedPreferences("radioButtonPrefs", Context.MODE_PRIVATE)
                 val savedRadioButtonId = sharedPreferences.getInt("selectedOption", -1)
                 var units = ""
-                if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231128){
+                if (savedRadioButtonId == -1 || savedRadioButtonId == 2131231133){
                     units = "miles"
-                }else if (savedRadioButtonId == 2131231127){
+                }else if (savedRadioButtonId == 2131231132){
                     units = "kilometers"
                 }
                 entry.units = units
@@ -339,9 +339,9 @@ class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
 
             if (savedRadioButtonId == -1){
                 avgSpeedText.text = "Average Speed: $temp mph"
-            }else if (savedRadioButtonId == 2131231127 && units == "miles"){
+            }else if (savedRadioButtonId == 2131231132 && units == "miles"){
                 avgSpeedText.text = "Average Speed: "+(((avgSpeed/ 0.621371)* 100).roundToInt() / 100.0).toString()+" kmph"
-            }else if (savedRadioButtonId == 2131231128 && units == "kilometers"){
+            }else if (savedRadioButtonId == 2131231133 && units == "kilometers"){
                 avgSpeedText.text = "Average Speed: "+(((avgSpeed* 0.621371)* 100).roundToInt() / 100.0).toString()+" mph"
             }else{
                 if (units == "miles"){
@@ -362,9 +362,9 @@ class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
             val temp3 = String.format("%.2f", distance)
             if (savedRadioButtonId == -1){
                 distanceText.text = "Distance: $temp3 miles"
-            }else if (savedRadioButtonId == 2131231127 && units == "miles"){
+            }else if (savedRadioButtonId == 2131231132 && units == "miles"){
                 distanceText.text = "Distance: "+(((distance/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km"
-            }else if (savedRadioButtonId == 2131231128 && units == "kilometers"){
+            }else if (savedRadioButtonId == 2131231133 && units == "kilometers"){
                 distanceText.text = "Distance: "+(((distance* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles"
             }else{
                 if (units == "miles"){

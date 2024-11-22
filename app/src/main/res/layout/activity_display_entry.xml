@@ -14,7 +14,7 @@
             android:layout_height="55dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="MyRuns4"
+            android:text="MyRuns5"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <Button

@@ -63,18 +63,23 @@ class HistoryAdapter(private val context: Context, private var historyList: List
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("radioButtonPrefs", Context.MODE_PRIVATE)
         val savedRadioButtonId = sharedPreferences.getInt("selectedOption", -1)
 
-
+        println("debug: saved radio button "+savedRadioButtonId)
         if (savedRadioButtonId == -1){
-            str2+=historyList.get(position).distance.toString()+" miles, "
-        }else if (savedRadioButtonId == 2131231127 && historyList.get(position).units == "miles"){
-            str2+=(((historyList.get(position).distance/ 0.621371)* 100).roundToInt() / 100.0).toString()+" km, "
-        }else if (savedRadioButtonId == 2131231128 && historyList.get(position).units == "kilometers"){
-            str2+=(((historyList.get(position).distance* 0.621371)* 100).roundToInt() / 100.0).toString()+" miles, "
+            val tempDecimal = historyList.get(position).distance
+            str2+=String.format("%.2f", tempDecimal)+" miles, "
+        }else if (savedRadioButtonId == 2131231132 && historyList.get(position).units == "miles"){
+            val tempDecimal = (((historyList.get(position).distance/ 0.621371)* 100).roundToInt() / 100.0)
+            str2+=String.format("%.2f", tempDecimal)+" km, "
+        }else if (savedRadioButtonId == 2131231133 && historyList.get(position).units == "kilometers"){
+            val tempDecimal = (((historyList.get(position).distance* 0.621371)* 100).roundToInt() / 100.0)
+            str2+=String.format("%.2f", tempDecimal) +" miles, "
         }else{
             if (historyList.get(position).units == "miles"){
-                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" miles, "
+                val tempDecimal = ((historyList.get(position).distance* 100).roundToInt() / 100.0)
+                str2+=String.format("%.2f", tempDecimal) +" miles, "
             }   else{
-                str2+=((historyList.get(position).distance* 100).roundToInt() / 100.0).toString()+" km, "
+                val tempDecimal = ((historyList.get(position).distance* 100).roundToInt() / 100.0)
+                str2+=String.format("%.2f", tempDecimal)+" km, "
             }
         }
 
